@@ -11,35 +11,25 @@ namespace WCFExtensibleDataObject
     [ServiceContract]
     public interface IService1
     {
-        [OperationContract]
-        string GetData(int value);
-
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
-
-        // TODO: Add your service operations here
+        void CreateCustomer(Customer cust);
+       
     }
 
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
-    // You can add XSD files into the project. After building the project, you can directly use the data types defined there, with the namespace "WCFExtensibleDataObject.ContractType".
-    [DataContract]
-    public class CompositeType
+    public class Customer : IExtensibleDataObject
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
 
-        [DataMember]
-        public bool BoolValue
+        public ExtensionDataObject ExtensionData
         {
-            get { return boolValue; }
-            set { boolValue = value; }
+            get
+            {
+                return _extensionData;
+            }
+            set
+            {
+                _extensionData = value;
+            }
         }
-
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
+        private ExtensionDataObject _extensionData;
+        
     }
 }
